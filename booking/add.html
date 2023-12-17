@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Urban Harvest-Booking</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">Booking</a>
+                        <ul class="innerlist">
+                            <!-- <li><a href="/booking/index.html"><img src="/assets/img/gardening.png"/>Current Booking</a></li>
+                            <li><a href="/booking/history.html"><img src="/assets/img/table.png"/>History Booking</a></li>
+                            <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
+                            <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
+                            <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
+                            <li><a href="/booking/extend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
+                    <li><a href="#"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            <h1 class="title">Current Booking Details</h1>
+            <article>
+                <p class="message"></p>
+                <form id="bookPlot">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Garden</th>
+                            </tr>
+                            <tr>
+                                <th>Name:</th>
+                                <td>
+                                    <select id="gardenName">
+                                        <option value="none" selected>Please Select Garden Name</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Plot No:</th>
+                                <td>
+                                    <input type="text" name="plotNo" readonly disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>
+                                    <input type="text" name="gardenAddress" readonly disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Use Year (Maximum is 2):</th>
+                                <td>
+                                    <input type="radio" name="bookYear" value="1" checked/> 1 Year
+                                    <input type="radio" name="bookYear" value="2"/> 2 Years
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="reset" class="submit"><i class="fas fa-eraser"></i> Clear</button>
+                                    <button type="submit" class="pay">+ Add</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form> 
+            </article>
+
+        </section>
+        <footer>
+            Copyright &copy; group C-A
+        </footer>
+    </body>
+</html>

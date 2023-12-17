@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: rgb(38,22,9);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: rgb(249,241,204);
+}
+
+header, footer {
+    background-color: rgb(234,180,100);
+    font-weight: bold;
+}
+
+footer {
+    text-align: right;
+    padding: 10px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li{
+    display: inline-block;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+nav img {
+    width: 25%;
+}
+
+.icon {
+    width: 15%;
+}
+
+.innerlist {
+    display: none;
+    background-color: rgb(183,142,109);
+}
+
+.innerlist li {
+    display: block;
+}
+
+.innerlist li a {
+    border-bottom: 1px solid whitesmoke;
+}
+
+nav ul li:hover .innerlist {
+    display: block;
+    position: absolute;
+    width: 100%;
+}
+
+nav ul li:last-child {
+    position: absolute;
+    right: 0;
+}
+
+.title {
+    margin: 50px;
+}
+
+article {
+    margin: 50px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+.mainTable tbody:first-child, tbody:nth-child(2) {
+    border-bottom: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+input {
+    border: 1px solid #ccc;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+}
+
+input[type="radio"]:checked {
+    background-color: rgb(234,180,100);
+}
+
+button {
+    margin: 5px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    float: right;
+}
+
+.submit {
+    background-color: rgb(234,180,100);
+}
+
+.pay {
+    background-color: rgb(74,185,103);
+}
+
+.delete {
+    background-color: rgb(255,88,76);
+}

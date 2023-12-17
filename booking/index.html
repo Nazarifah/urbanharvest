@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Urban Harvest-Booking</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">Booking</a>
+                        <ul class="innerlist">
+                            <!-- <li><a href="/booking/index.html"><img src="/assets/img/gardening.png"/>Current Booking</a></li>
+                            <li><a href="/booking/history.html"><img src="/assets/img/table.png"/>History Booking</a></li>
+                            <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
+                            <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
+                            <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
+                            <li><a href="/booking/extend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
+                    <li><a href="#"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            <h1 class="title">Current Booking Details</h1>
+            <article>
+                <p class="message"></p>
+                <form id="bookPlot">
+                    <table class="mainTable">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Garden</th>
+                            </tr>
+                            <tr>
+                                <th>Name:</th>
+                                <td>
+                                    <select id="gardenName">
+                                        <option value="none" selected>Please Select Garden Name</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Plot No:</th>
+                                <td>
+                                    <input type="text" name="plotNo" readonly disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>
+                                    <input type="text" name="gardenAddress" readonly disabled/>
+                                </td>
+                            </tr>
+                        </tbody>
+                        
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Booking</th>
+                            </tr>
+                            <tr>
+                                <th>Approval:</th>
+                                <th>Pending</th>
+                            </tr>
+                            <tr>
+                                <th>Date Time:</th>
+                                <td>
+                                    <input type="text" name="bookDT" readonly disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Use Year (Maximum is 2):</th>
+                                <td>
+                                    <input type="radio" name="bookYear" value="1" checked/> 1 Year
+                                    <input type="radio" name="bookYear" value="2"/> 2 Years
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Expired:</th>
+                                <td>
+                                    <input type="text" name="bookExpired" readonly disabled />
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody>
+                            <tr>
+                                <th colspan="2">Payment</th>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <th>Pending</th>
+                            </tr>
+                            <tr>
+                                <th>Amount (RM 50/year):</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Date Time:</th>
+                                <td>
+                                    <input type="text" name="payDT" readonly disabled/>
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <td colspan="2">
+                                    <!-- <button type="submit" class="pay"><img src="/assets/img/pay.png" class="icon"/> Pay</button>
+                                    <button type="submit" class="submit"><img src="/assets/img/delete.png" class="icon"/> Pay</button> -->
+                                    <!-- show if pending payment -->
+                                    <button type="submit" class="pay"><i class="fas fa-money-bill-wave"></i> Pay</button>
+                                    <!-- show if pending approval and pending payment -->
+                                    <button type="submit" class="submit"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <!-- show if success payment -->
+                                    <button type="submit" class="submit">+ Extend</button>
+                                    <!-- show if pending approval -->
+                                    <button type="submit" class="submit"><i class="fas fa-pen"></i> Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form> 
+            </article>
+
+        </section>
+        <footer>
+            Copyright &copy; group C-A
+        </footer>
+    </body>
+</html>
