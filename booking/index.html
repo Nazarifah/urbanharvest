@@ -4,6 +4,52 @@
         <title>Urban Harvest-Booking</title>
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("button[name='extend']").hide();
+                $("button[name='pay']").hide();
+                $("button[name='edit']").hide();
+
+                var savedName = localStorage.getItem("gardenName");
+                var savedPlot = localStorage.getItem("plotNo");
+                var savedAddress = localStorage.getItem("gardenAddress");
+                var savedBookDT = localStorage.getItem("bookDT");
+                var savedBookExpired = localStorage.getItem("bookExpired");
+                var savedYear = localStorage.getItem("bookYear");
+
+                // Check if there is saved data
+                if (savedName && savedPlot && savedAddress && savedYear && savedBookDT) {
+                    // Display the saved data in your HTML elements
+                    var option = $('<option>').val(savedName).text(savedName);
+                    $("#gardenName").append(option).val(savedName);
+
+                    $("input[name='plotNo']").val(savedPlot);
+                    $("textarea[name='gardenAddress']").val(savedAddress);
+                    $("input[name='bookDT']").val(savedBookDT);
+                    $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
+                    $("input[name='bookExpired']").val(savedBookExpired);
+                    $("span:eq(2)").html(parseInt(savedYear) * 50);
+
+                    if($("span:eq(0)").html().toUpperCase() == "PENDING"){
+                        $("button[name='edit']").show();
+                    }
+                    else if($("span:eq(0)").html().toUpperCase() == "APPROVED" && 
+                        $("span:eq(1)").html().toUpperCase() == "PENDING"){
+                        $("button[name='pay']").show();
+                    }
+                    else if($("span:eq(1)").html().toUpperCase() == "APPROVED"){
+                        $("button[name='extend']").show();
+                    }
+                } 
+                else {
+                    $("article:eq(1)").hide();
+                    $(".message").html("No booking record exists. You can book <a href='add.html'>here</a>.").css("color", "Red");
+                }
+            });
+
+        </script>
     </head>
     <body>
         <header>
@@ -31,6 +77,8 @@
             <h1 class="title">Current Booking Details</h1>
             <article>
                 <p class="message"></p>
+            </article>
+            <article id="mainContent">
                 <form id="bookPlot">
                     <table class="mainTable">
                         <tbody>
@@ -54,7 +102,7 @@
                             <tr>
                                 <th>Address:</th>
                                 <td>
-                                    <input type="text" name="gardenAddress" readonly disabled/>
+                                    <textarea name="gardenAddress" readonly disabled cols="30" rows="5"></textarea>
                                 </td>
                             </tr>
                         </tbody>
@@ -65,7 +113,9 @@
                             </tr>
                             <tr>
                                 <th>Approval:</th>
-                                <th>Pending</th>
+                                <th>
+                                    <span>Pending</span>
+                                </th>
                             </tr>
                             <tr>
                                 <th>Date Time:</th>
@@ -94,11 +144,15 @@
                             </tr>
                             <tr>
                                 <th>Status:</th>
-                                <th>Pending</th>
+                                <th>
+                                    <span>Pending</span>
+                                </th>
                             </tr>
                             <tr>
                                 <th>Amount (RM 50/year):</th>
-                                <td></td>
+                                <td>
+                                    <span></span>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Date Time:</th>
@@ -111,14 +165,14 @@
                                 <td colspan="2">
                                     <!-- <button type="submit" class="pay"><img src="/assets/img/pay.png" class="icon"/> Pay</button>
                                     <button type="submit" class="submit"><img src="/assets/img/delete.png" class="icon"/> Pay</button> -->
-                                    <!-- show if pending payment -->
-                                    <button type="submit" class="pay"><i class="fas fa-money-bill-wave"></i> Pay</button>
                                     <!-- show if pending approval and pending payment -->
-                                    <button type="submit" class="submit"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button type="submit" name="delete" class="delete"><i class="fas fa-trash-alt"></i> Cancel</button>
+                                    <!-- show if pending payment -->
+                                    <button type="submit" name="pay" class="submit"><i class="fas fa-money-bill-wave"></i> Pay</button>
                                     <!-- show if success payment -->
-                                    <button type="submit" class="submit">+ Extend</button>
+                                    <button type="submit" name="extend" class="submit">+ Extend</button>
                                     <!-- show if pending approval -->
-                                    <button type="submit" class="submit"><i class="fas fa-pen"></i> Edit</button>
+                                    <button type="submit" name="edit" class="submit"><i class="fas fa-pen"></i> Edit</button>
                                 </td>
                             </tr>
                         </tbody>

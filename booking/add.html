@@ -4,6 +4,85 @@
         <title>Urban Harvest-Booking</title>
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+
+                var gardenList = [
+                    ['Taman Desa Idaman', '1', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka'],
+                    ['Taman Nuri Sentosa', '1', 'Kampung Tengah, 76100 Durian Tunggal, Melaka'],
+                    ['Taman Daya', '1', 'Taman Daya, 81100 Johor Bahru, Johor'],
+                ];
+
+                $.each(gardenList, function (index, value) {
+                    $("#gardenName").append($('<option></option>').attr('value', value[0]).text(value[0]));
+                });
+
+                $("#gardenName").change(function(){
+                    var plot;
+                    var address;
+                    var name = checkDropDown("#gardenName");
+                    $.each(gardenList, function(index, value) {
+                        if (value[0] === name) {
+                            plot = value[1];
+                            address = value[2];
+                            return false;
+                        }
+                    });
+
+                    $("input[name='plotNo']").val(plot);
+                    $("textArea[name='gardenAddress']").val(address);
+                });
+
+                function checkDropDown(selector){
+                    var selectedValue = $(selector).val();
+                    if (selectedValue) {
+                        return selectedValue;
+                    } 
+                    else {
+                        selector.focus();
+                        return null;
+                    }
+                }
+
+                $('#addBtn').click(function(){
+                    
+                    var bookYear = $("input[name='bookYear']:checked").val();
+                    var plot = $("input[name='plotNo']").val();
+                    var address = $("textarea[name='gardenAddress']").val();
+
+                    var name = checkDropDown("#gardenName");
+
+                    if(name == "" || bookYear == undefined){
+                        alert("Please filled in all the fields");
+                        return;
+                    }
+                    else{
+                        var currentDT = new Date();
+                        var day = currentDT.getDate().toString().padStart(2, '0');
+                        var month = (currentDT.getMonth() + 1).toString().padStart(2, '0'); 
+                        var year = currentDT.getFullYear();
+                        var hour = currentDT.getHours().toString().padStart(2, '0');
+                        var minute = currentDT.getMinutes().toString().padStart(2, '0');
+                        var second = currentDT.getSeconds().toString().padStart(2, '0');
+
+                        var bookDT = day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' + second;
+
+                        var yearExpired = currentDT.getFullYear() + 1;
+                        var bookExpired = day + '/' + month + '/' + yearExpired + ' ' + hour + ':' + minute + ':' + second;
+
+                        localStorage.setItem("gardenName", name);
+                        localStorage.setItem("plotNo", plot);
+                        localStorage.setItem("gardenAddress", address);
+                        localStorage.setItem("bookYear", bookYear);
+                        localStorage.setItem("bookDT", bookDT);
+                        localStorage.setItem("bookExpired", bookExpired)
+                        window.location.href = "index.html"; 
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <header>
@@ -54,7 +133,7 @@
                             <tr>
                                 <th>Address:</th>
                                 <td>
-                                    <input type="text" name="gardenAddress" readonly disabled/>
+                                    <textarea name="gardenAddress" readonly disabled cols="30" rows="5"></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +146,7 @@
                             <tr>
                                 <td colspan="2">
                                     <button type="reset" class="submit"><i class="fas fa-eraser"></i> Clear</button>
-                                    <button type="submit" class="pay">+ Add</button>
+                                    <button type="button" class="normal" id="addBtn">+ Add</button>
                                 </td>
                             </tr>
                         </tbody>

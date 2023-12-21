@@ -117,11 +117,11 @@ button {
 }
 
 .submit {
-    background-color: rgb(234,180,100);
+    background-color: rgb(74,185,103);
 }
 
-.pay {
-    background-color: rgb(74,185,103);
+.normal {
+    background-color: rgb(234,180,100);
 }
 
 .delete {
