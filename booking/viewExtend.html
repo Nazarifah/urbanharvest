@@ -4,6 +4,84 @@
         <title>Urban Harvest-Booking</title>
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                
+                var savedName = localStorage.getItem("gardenName");
+                var savedPlot = localStorage.getItem("plotNo");
+                var savedAddress = localStorage.getItem("gardenAddress");
+                var savedBookDT = localStorage.getItem("extendDT");
+                var savedBookExpired = localStorage.getItem("extendExpired");
+                var savedYear = localStorage.getItem("bookYear");
+
+                // Check if there is saved data
+                if (savedName && savedPlot && savedAddress && savedYear && savedBookDT) {
+                    // Display the saved data in your HTML elements
+                    var option = $('<option>').val(savedName).text(savedName);
+                    $("#gardenName").append(option).val(savedName);
+
+                    $("input[name='plotNo']").val(savedPlot);
+                    $("textarea[name='gardenAddress']").val(savedAddress);
+                    $("input[name='bookDT']").val(savedBookDT);
+                    $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
+                    $("input[name='bookExpired']").val(savedBookExpired);
+                    $("span:eq(2)").html(parseInt(savedYear) * 50);
+
+                    buttonControl();
+                } 
+                else {
+                    $("article:eq(1)").hide();
+                    $(".message").html("No booking record exists. You can book <a href='add.html'>here</a>.").css("color", "Red");
+                }
+
+                $("button[name='pay']").click(function () {
+                    var amount = parseFloat($("input[name='payAmount']").val());
+
+                    if (isNaN(amount)) {
+                        alert("Please enter a number only");
+                        $("input[name='payAmount']").focus();
+                    } 
+                    else if (amount >= 50 * savedYear) {
+                        var balance = amount - 50 * savedYear;
+
+                        alert("Thank you.");
+                        $("input[name='balance']").val(balance);
+                        $("input[name='payDT']").val(getDate(false));
+                        $("span:eq(1)").html("PAID");
+                        buttonControl();
+                    } 
+                    else {
+                        alert("Sorry, the amount is not enough. Try again");
+                        $("input[name='payAmount']").focus();
+                    }
+                });
+
+                function buttonControl(){
+
+                    $("button[name='pay']").hide();
+                    $("button[name='edit']").hide();
+                    $(".amount").hide();
+
+                    if($("span:eq(0)").html().toUpperCase() == "PENDING"){
+                        $("button[name='edit']").show();
+                    }
+                    else if($("span:eq(0)").html().toUpperCase() == "APPROVED" && 
+                        $("span:eq(1)").html().toUpperCase() == "PENDING"){
+                        $("button[name='pay']").show();
+                        $(".amount").show();
+                    }
+                    else if($("span:eq(1)").html().toUpperCase() == "PAID"){
+                        $(".amount").show();
+                    }
+                    
+                }
+
+            });
+
+        </script>
     </head>
     <body>
         <header>
@@ -18,7 +96,7 @@
                             <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
                             <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
                             <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
-                            <li><a href="/booking/extend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li><a href="/booking/viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
                             <li></li>
                         </ul>
                     </li>
@@ -54,7 +132,7 @@
                             <tr>
                                 <th>Address:</th>
                                 <td>
-                                    <input type="text" name="gardenAddress" readonly disabled/>
+                                    <textarea name="gardenAddress" readonly disabled cols="30" rows="5"></textarea>
                                 </td>
                             </tr>
                         </tbody>
@@ -65,7 +143,9 @@
                             </tr>
                             <tr>
                                 <th>Approval:</th>
-                                <th>Pending</th>
+                                <th>
+                                    <span>Pending</span>
+                                </th>
                             </tr>
                             <tr>
                                 <th>Date Time:</th>
@@ -80,6 +160,12 @@
                                     <input type="radio" name="bookYear" value="2"/> 2 Years
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Expired:</th>
+                                <td>
+                                    <input type="text" name="bookExpired" readonly disabled />
+                                </td>
+                            </tr>
                         </tbody>
 
                         <tbody>
@@ -88,13 +174,29 @@
                             </tr>
                             <tr>
                                 <th>Status:</th>
-                                <th>Pending</th>
+                                <th>
+                                    <span>Pending</span>
+                                </th>
                             </tr>
                             <tr>
                                 <th>Amount (RM 50/year):</th>
-                                <td></td>
+                                <td>
+                                    <span></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr class="amount">
+                                <th>Pay Amount (RM):</th>
+                                <td>
+                                    <input type="text" name="payAmount"/>
+                                </td>
+                            </tr>
+                            <tr class="amount">
+                                <th>Balance (RM):</th>
+                                <td>
+                                    <input type="text" name="balance" readonly disabled/>
+                                </td>
+                            </tr>
+                            <tr class="amount">
                                 <th>Date Time:</th>
                                 <td>
                                     <input type="text" name="payDT" readonly disabled/>
@@ -103,8 +205,14 @@
     
                             <tr>
                                 <td colspan="2">
-                                    <!-- <button type="submit" class="submit"><img src="/assets/img/edit.png" class="icon"/> Edit</button> -->
-                                    <button type="submit" class="submit"><i class="fas fa-pen"></i> Edit</button>
+                                    <!-- <button type="submit" class="pay"><img src="/assets/img/pay.png" class="icon"/> Pay</button>
+                                    <button type="submit" class="submit"><img src="/assets/img/delete.png" class="icon"/> Pay</button> -->
+                                    <!-- show if pending approval and pending payment -->
+                                    <button type="button" name="delete" class="delete"><i class="fas fa-trash-alt"></i> Cancel</button>
+                                    <!-- show if pending payment -->
+                                    <button type="button" name="pay" class="submit"><i class="fas fa-money-bill-wave"></i> Pay</button>
+                                    <!-- show if pending approval -->
+                                    <button type="button" name="edit" class="submit"><i class="fas fa-pen"></i> Edit</button>
                                 </td>
                             </tr>
                         </tbody>

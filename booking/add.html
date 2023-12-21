@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/js/script.js"></script>
 
         <script>
             $(document).ready(function(){
@@ -59,18 +60,8 @@
                         return;
                     }
                     else{
-                        var currentDT = new Date();
-                        var day = currentDT.getDate().toString().padStart(2, '0');
-                        var month = (currentDT.getMonth() + 1).toString().padStart(2, '0'); 
-                        var year = currentDT.getFullYear();
-                        var hour = currentDT.getHours().toString().padStart(2, '0');
-                        var minute = currentDT.getMinutes().toString().padStart(2, '0');
-                        var second = currentDT.getSeconds().toString().padStart(2, '0');
-
-                        var bookDT = day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' + second;
-
-                        var yearExpired = currentDT.getFullYear() + 1;
-                        var bookExpired = day + '/' + month + '/' + yearExpired + ' ' + hour + ':' + minute + ':' + second;
+                        var bookDT = getDate(false);
+                        var bookExpired = getDate(true);
 
                         localStorage.setItem("gardenName", name);
                         localStorage.setItem("plotNo", plot);
@@ -97,7 +88,7 @@
                             <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
                             <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
                             <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
-                            <li><a href="/booking/extend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li><a href="/booking/viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
                             <li></li>
                         </ul>
                     </li>

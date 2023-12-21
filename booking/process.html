@@ -4,6 +4,66 @@
         <title>Urban Harvest-Booking</title>
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+
+                var bookingList = [
+                    ['Taman Desa Idaman', '1', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka', 'yuqin1161@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), "Pending", "Pending"],
+                    ['Taman Nuri Sentosa', '1', 'Kampung Tengah, 76100 Durian Tunggal, Melaka', 'micheal@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), "Approved", "Pending"],
+                    ['Taman Daya', '1', 'Taman Daya, 81100 Johor Bahru, Johor', 'yuan@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), "Declined", "Pending"],
+                    ['Taman Desa Idaman', '2', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka', 'yuqin1161@gmail.com', '16/11/2023 07:46', localStorage.getItem("bookYear"), "Approved", "Paid"],
+                    ['Taman Nuri Sentosa', '21', 'Kampung Tengah, 76100 Durian Tunggal, Melaka', 'micheal@gmail.com', '16/10/2023 07:46', '1', "Approved", "Cancelled"],
+                    ['Taman Daya', '2', 'Taman Daya, 81100 Johor Bahru, Johor', 'yuan@gmail.com', '15/10/2023 17:46', '2', "Declined", "Pending"],
+                ];
+
+                function appendRowsToTable(bookingList){
+                    var dtTable = $('table tbody');
+                    dtTable.empty();
+
+                    $.each(bookingList, function(index, row){
+                        var newRow = '<tr>' + 
+                            '<td>' + (index + 1) + '</td>' + 
+                            '<td><span>' + row[0] + '</span><br/><span>Plot ' + row[1] + '</td>' + 
+                            '<td>' + row[2] + '</td>' + 
+                            '<td><a href="' + row[3] + '">' + row[3] + '</a></td>' + 
+                            '<td>' + row[4] + '</td>' + 
+                            '<td>' + row[5] + '</td>' + 
+                            '<td><span id="approval">' + row[6] + '</span></td>' +
+                            '<td>' + row[7] + '</td>';
+
+                        if(row[6].toUpperCase() === "PENDING"){
+                            newRow = newRow + '<td>' +
+                                '<button class="submit"><i class="far fa-check-circle"></i></button>' +
+                                '<button class="delete"><i class="far fa-times-circle"></i></button>' +
+                                '</td>' +
+                                '</tr>';
+                        }
+                        else{
+                            newRow = newRow + '<td>' + '</td>' + '</tr>';
+                        }
+
+                        dtTable.append(newRow);
+                    });
+                }
+
+                $("input[name='selection']").change(function(){
+                    if($("input[name='selection']:checked").val().toUpperCase() == "ALL"){
+                        appendRowsToTable(bookingList);
+                    }
+                    else {
+                        var filteredList = bookingList.filter(function(row) {
+                            return row[6].toUpperCase() === $("input[name='selection']:checked").val().toUpperCase();
+                        });
+                        appendRowsToTable(filteredList);
+                    }
+
+                });
+
+                appendRowsToTable(bookingList);
+            });
+        </script>
+
     </head>
     <body>
         <header>
@@ -18,7 +78,7 @@
                             <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
                             <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
                             <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
-                            <li><a href="/booking/extend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li><a href="/booking/viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
                             <li></li>
                         </ul>
                     </li>
@@ -31,10 +91,10 @@
             <h1 class="title">Customer Booking</h1>
             <article>
                 <div>
-                    <input type="radio" name="all" checked/> All
-                    <input type="radio" name="pending" /> Pending
-                    <input type="radio" name="approve" /> Approved
-                    <input type="radio" name="decline" /> Declined
+                    <input type="radio" name="selection" value="all" checked/> All
+                    <input type="radio" name="selection" value="pending" /> Pending
+                    <input type="radio" name="selection" value="approved" /> Approved
+                    <input type="radio" name="selection" value="declined" /> Declined
                 </div>
                 <table>
                     <thead>
@@ -61,7 +121,9 @@
                             <td><a href="#">yuqin1161@gmail.com</a></td>
                             <td>16/10/2023 07:46</td>
                             <td>1</td>
-                            <td>Pending</td>
+                            <td>
+                                <span id="approval">Pending</span>
+                            </td>
                             <td>Paid</td>
                             <td>
                                 <button class="submit"><i class="far fa-check-circle"></i></button>
