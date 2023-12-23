@@ -9,24 +9,23 @@
             $(document).ready(function(){
 
                 var bookingList = [
-                    ['Taman Desa Idaman', '1', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka', 'yuqin1161@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), "Pending", "Pending"],
-                    ['Taman Nuri Sentosa', '1', 'Kampung Tengah, 76100 Durian Tunggal, Melaka', 'micheal@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), "Approved", "Pending"],
-                    ['Taman Daya', '1', 'Taman Daya, 81100 Johor Bahru, Johor', 'yuan@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), "Declined", "Pending"],
-                    ['Taman Desa Idaman', '2', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka', 'yuqin1161@gmail.com', '16/11/2023 07:46', localStorage.getItem("bookYear"), "Approved", "Paid"],
-                    ['Taman Nuri Sentosa', '21', 'Kampung Tengah, 76100 Durian Tunggal, Melaka', 'micheal@gmail.com', '16/10/2023 07:46', '1', "Approved", "Cancelled"],
-                    ['Taman Daya', '2', 'Taman Daya, 81100 Johor Bahru, Johor', 'yuan@gmail.com', '15/10/2023 17:46', '2', "Declined", "Pending"],
+                    [localStorage.getItem("gardenName"), localStorage.getItem("plotNo"), localStorage.getItem("gardenAddress"), 'yuqin1161@gmail.com', localStorage.getItem("bookDT"), localStorage.getItem("bookYear"), localStorage.getItem("bookApproval"), localStorage.getItem("paymentStatus")],
+                    ['Taman Desa Idaman', '2', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka', 'yuqin1161@gmail.com', '16/10/2023 07:46', localStorage.getItem("bookYear"), "Approved", "Paid"],
+                    ['Taman Nuri Sentosa', '21', 'Kampung Tengah, 76100 Durian Tunggal, Melaka', 'micheal@gmail.com', '16/9/2023 07:46', '1', "Approved", "Cancelled"],
+                    ['Taman Daya', '2', 'Taman Daya, 81100 Johor Bahru, Johor', 'yuan@gmail.com', '15/9/2023 17:46', '2', "Declined", "Pending"],
                 ];
 
                 function appendRowsToTable(bookingList){
+                    var counter = 0;
                     var dtTable = $('table tbody');
                     dtTable.empty();
 
                     $.each(bookingList, function(index, row){
                         var newRow = '<tr>' + 
-                            '<td>' + (index + 1) + '</td>' + 
+                            '<td><input id="indicator" value="extend" hidden/>' + (index + 1) + '</td>' + 
                             '<td><span>' + row[0] + '</span><br/><span>Plot ' + row[1] + '</td>' + 
                             '<td>' + row[2] + '</td>' + 
-                            '<td><a href="' + row[3] + '">' + row[3] + '</a></td>' + 
+                            '<td><a href="/booking/viewTransaction.html">' + row[3] + '</a></td>' + 
                             '<td>' + row[4] + '</td>' + 
                             '<td>' + row[5] + '</td>' + 
                             '<td><span id="approval">' + row[6] + '</span></td>' +
@@ -34,8 +33,8 @@
 
                         if(row[6].toUpperCase() === "PENDING"){
                             newRow = newRow + '<td>' +
-                                '<button class="submit"><i class="far fa-check-circle"></i></button>' +
-                                '<button class="delete"><i class="far fa-times-circle"></i></button>' +
+                                '<button class="submit" name="approve"><i class="far fa-check-circle"></i></button>' +
+                                '<button class="delete" name="decline"><i class="far fa-times-circle"></i></button>' +
                                 '</td>' +
                                 '</tr>';
                         }
@@ -43,8 +42,35 @@
                             newRow = newRow + '<td>' + '</td>' + '</tr>';
                         }
 
+                        counter ++;
                         dtTable.append(newRow);
                     });
+
+                    if(localStorage.getItem("extendExpired")){
+                        var newRow = '<tr>' + 
+                            '<td><input id="indicator" value="extend" hidden/>' + (counter + 1) + '</td>' + 
+                            '<td><span>' + localStorage.getItem("gardenName") + '</span><br/><span>Plot ' + localStorage.getItem("plotNo") + '</td>' + 
+                            '<td>' + localStorage.getItem("gardenAddress") + '</td>' + 
+                            '<td><a href="/booking/viewTransaction.html">yuqin1161@gmail.com</a></td>' + 
+                            '<td>' + localStorage.getItem("extendDT") + '</td>' + 
+                            '<td>' + localStorage.getItem("extendYear") + '</td>' + 
+                            '<td><span id="approval">' + localStorage.getItem("extendApproval") + '</span></td>' +
+                            '<td>' + localStorage.getItem("extendPaymentStatus") + '</td>';
+
+                        if(localStorage.getItem("extendApproval").toUpperCase() === "PENDING"){
+                            newRow = newRow + '<td>' +
+                                '<button class="submit" name="approve"><i class="far fa-check-circle"></i></button>' +
+                                '<button class="delete" name="decline"><i class="far fa-times-circle"></i></button>' +
+                                '</td>' +
+                                '</tr>';
+                        }
+                        else{
+                            newRow = newRow + '<td>' + '</td>' + '</tr>';
+                        }
+                        dtTable.append(newRow);
+
+                    }
+                    
                 }
 
                 $("input[name='selection']").change(function(){
@@ -61,6 +87,34 @@
                 });
 
                 appendRowsToTable(bookingList);
+
+                $("button[name='approve']").click(function(){
+                    var result = window.confirm("Are you sure to approve this booking request?");
+                    if(result){
+                        if($("#indicator").val() === "extend"){
+                            localStorage.setItem("extendApproval", "Approved");
+                        }
+                        else{
+                            localStorage.setItem("bookApproval", "Approved");
+                        }
+                        window.location.reload();
+                    }
+                });
+
+                $("button[name='decline']").click(function(){
+                    var result = window.confirm("Are you sure to decline this booking request?");
+                    if(result){
+                        if($("#indicator").val() === "extend"){
+                            localStorage.setItem("extendApproval", "Declined");
+                        }
+                        else{
+                            localStorage.setItem("bookApproval", "Declined");
+                        }
+                        window.location.reload();
+                    }
+                });
+
+                alert(localStorage.getItem("bookApproval") + " " + localStorage.getItem("extendApproval"));
             });
         </script>
 
@@ -76,9 +130,7 @@
                             <!-- <li><a href="/booking/index.html"><img src="/assets/img/gardening.png"/>Current Booking</a></li>
                             <li><a href="/booking/history.html"><img src="/assets/img/table.png"/>History Booking</a></li>
                             <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
-                            <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
-                            <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
-                            <li><a href="/booking/viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
+                            <li><a href="/booking/process.html"><i class="fas fa-table"></i>Process Booking</a></li>
                             <li></li>
                         </ul>
                     </li>
@@ -96,12 +148,13 @@
                     <input type="radio" name="selection" value="approved" /> Approved
                     <input type="radio" name="selection" value="declined" /> Declined
                 </div>
-                <table>
+                <br/>
+                <table border="border-collapse">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Garden / Plot No</th>
-                            <th>Address</th>
+                            <th>Garden Address</th>
                             <th>User</th>
                             <th>Book Date Time</th>
                             <th>Use Year</th>
@@ -118,7 +171,7 @@
                                 <span>Plot 2</span>
                             </td>
                             <td>Taman Desa Idaman, Durian Tunggal, 76100, Melaka</td>
-                            <td><a href="#">yuqin1161@gmail.com</a></td>
+                            <td><a href="/booking/viewTransaction.html">yuqin1161@gmail.com</a></td>
                             <td>16/10/2023 07:46</td>
                             <td>1</td>
                             <td>
@@ -126,8 +179,8 @@
                             </td>
                             <td>Paid</td>
                             <td>
-                                <button class="submit"><i class="far fa-check-circle"></i></button>
-                                <button class="delete"><i class="far fa-times-circle"></i></button>
+                                <button class="submit" name="approve"><i class="far fa-check-circle"></i></button>
+                                <button class="delete" name="decline"><i class="far fa-times-circle"></i></button>
                             </td>
                         </tr>
                     </tbody>

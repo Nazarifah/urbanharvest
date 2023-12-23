@@ -9,7 +9,6 @@
 
         <script>
             $(document).ready(function () {
-                
                 var savedName = localStorage.getItem("gardenName");
                 var savedPlot = localStorage.getItem("plotNo");
                 var savedAddress = localStorage.getItem("gardenAddress");
@@ -28,7 +27,16 @@
                     $("input[name='bookDT']").val(savedBookDT);
                     $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
                     $("input[name='bookExpired']").val(savedBookExpired);
+                    $("span:eq(0)").html(localStorage.getItem("bookApproval"));
+                    $("span:eq(1)").html(localStorage.getItem("paymentStatus"));
                     $("span:eq(2)").html(parseInt(savedYear) * 50);
+
+                    if(localStorage.getItem("balance") && localStorage.getItem("payAmount") && localStorage.getItem("payDT")){
+                        $("input[name='balance']").val(localStorage.getItem("balance"));
+                        $("input[name='payAmount']").val(localStorage.getItem("payAmount"));
+                        $("input[name='payAmount']").prop('disabled', true);
+                        $("input[name='payDT']").val(localStorage.getItem("payDT"));
+                    }
 
                     buttonControl();
                 } 
@@ -37,24 +45,37 @@
                     $(".message").html("No booking record exists. You can book <a href='add.html'>here</a>.").css("color", "Red");
                 }
 
+                if($("span:eq(0)").html().toUpperCase() === "DECLINED"){
+                    $(".paySection").hide();
+                }
+
                 $("button[name='pay']").click(function () {
                     var amount = parseFloat($("input[name='payAmount']").val());
 
                     if (isNaN(amount)) {
-                        alert("Please enter a number only");
+                        $(".message").html("Please enter numbers only");
+                        scrollToMessage();
                         $("input[name='payAmount']").focus();
                     } 
                     else if (amount >= 50 * savedYear) {
                         var balance = amount - 50 * savedYear;
-
+                        var payDT = getDate(false, 0);
                         alert("Thank you.");
                         $("input[name='balance']").val(balance);
-                        $("input[name='payDT']").val(getDate(false));
-                        $("span:eq(1)").html("PAID");
+                        $("input[name='payDT']").val(payDT);
+                        $("span:eq(1)").html("Paid");
+                        $(".message").hide();
+
+                        localStorage.setItem("balance", balance);
+                        localStorage.setItem("payDT", payDT);
+                        localStorage.setItem("paymentStatus", "Paid");
+                        localStorage.setItem("payAmount", amount);
+
                         buttonControl();
                     } 
                     else {
-                        alert("Sorry, the amount is not enough. Try again");
+                        $(".message").html("Sorry, the amount is not enough. Try again");
+                        scrollToMessage();
                         $("input[name='payAmount']").focus();
                     }
                 });
@@ -83,6 +104,14 @@
 
                 $("button[name='extend']").click(function(){
                     window.location.href = "extend.html";
+                });
+
+                $("button[name='delete']").click(function(){
+                    var result = window.confirm("Are you sure to cancel plot booking?");
+                    if(result){
+                        localStorage.clear();
+                        window.location.reload();
+                    }
                 });
 
             });
@@ -177,16 +206,16 @@
                         </tbody>
 
                         <tbody>
-                            <tr>
+                            <tr class="paySection">
                                 <th colspan="2">Payment</th>
                             </tr>
-                            <tr>
+                            <tr class="paySection">
                                 <th>Status:</th>
                                 <th>
                                     <span>Pending</span>
                                 </th>
                             </tr>
-                            <tr>
+                            <tr class="paySection">
                                 <th>Amount (RM 50/year):</th>
                                 <td>
                                     <span></span>

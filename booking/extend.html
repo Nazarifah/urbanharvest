@@ -34,8 +34,10 @@
                     var bookYear = $("input[name='bookYear']:checked").val();
 
                     localStorage.setItem("extendYear", bookYear);
-                    localStorage.setItem("extendDT", getDate(false));
-                    localStorage.setItem("extendExpired", getDate(true));
+                    localStorage.setItem("extendDT", getDate(false, 0));
+                    localStorage.setItem("extendExpired", getDate(true, bookYear));
+                    localStorage.setItem("extendApproval", "Pending");
+                    localStorage.setItem("extendPaymentStatus", "Pending");
 
                     window.location.href = "viewExtend.html";
                 });
@@ -107,7 +109,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <button type="button" class="normal"><i class="fa fa-arrow-left"></i> Back</button>
+                                <button type="button" class="normal" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> Back</button>
                                 <button type="button" name="submit" class="submit">+ Submit</button>
                             </td>
                         </tr>

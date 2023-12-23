@@ -11,9 +11,9 @@
             $(document).ready(function(){
 
                 var gardenList = [
+                    ['Taman Daya', '1', 'Taman Daya, 81100 Johor Bahru, Johor'],
                     ['Taman Desa Idaman', '1', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka'],
                     ['Taman Nuri Sentosa', '1', 'Kampung Tengah, 76100 Durian Tunggal, Melaka'],
-                    ['Taman Daya', '1', 'Taman Daya, 81100 Johor Bahru, Johor'],
                 ];
 
                 $.each(gardenList, function (index, value) {
@@ -24,6 +24,7 @@
                     var plot;
                     var address;
                     var name = checkDropDown("#gardenName");
+                    $(".message").hide();
                     $.each(gardenList, function(index, value) {
                         if (value[0] === name) {
                             plot = value[1];
@@ -55,20 +56,22 @@
 
                     var name = checkDropDown("#gardenName");
 
-                    if(name == "" || bookYear == undefined){
-                        alert("Please filled in all the fields");
-                        return;
+                    if(name == "none" || bookYear == undefined){
+                        $(".message").html("Please select garden.");
+                        $("#gardenName").focus();
                     }
                     else{
-                        var bookDT = getDate(false);
-                        var bookExpired = getDate(true);
+                        var bookDT = getDate(false, 0);
+                        var bookExpired = getDate(true, bookYear);
 
                         localStorage.setItem("gardenName", name);
                         localStorage.setItem("plotNo", plot);
                         localStorage.setItem("gardenAddress", address);
                         localStorage.setItem("bookYear", bookYear);
                         localStorage.setItem("bookDT", bookDT);
-                        localStorage.setItem("bookExpired", bookExpired)
+                        localStorage.setItem("bookExpired", bookExpired);
+                        localStorage.setItem("bookApproval", "Pending");
+                        localStorage.setItem("paymentStatus", "Pending");
                         window.location.href = "index.html"; 
                     }
                 });
@@ -136,8 +139,8 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <button type="reset" class="submit"><i class="fas fa-eraser"></i> Clear</button>
-                                    <button type="button" class="normal" id="addBtn">+ Add</button>
+                                    <button type="reset" class="normal"><i class="fas fa-eraser"></i> Clear</button>
+                                    <button type="button" class="submit" id="addBtn">+ Add</button>
                                 </td>
                             </tr>
                         </tbody>

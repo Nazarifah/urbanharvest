@@ -15,10 +15,10 @@
                 var savedAddress = localStorage.getItem("gardenAddress");
                 var savedBookDT = localStorage.getItem("extendDT");
                 var savedBookExpired = localStorage.getItem("extendExpired");
-                var savedYear = localStorage.getItem("bookYear");
+                var extendYear = localStorage.getItem("extendYear");
 
                 // Check if there is saved data
-                if (savedName && savedPlot && savedAddress && savedYear && savedBookDT) {
+                if (savedName && savedPlot && savedAddress && extendYear && savedBookDT) {
                     // Display the saved data in your HTML elements
                     var option = $('<option>').val(savedName).text(savedName);
                     $("#gardenName").append(option).val(savedName);
@@ -26,35 +26,57 @@
                     $("input[name='plotNo']").val(savedPlot);
                     $("textarea[name='gardenAddress']").val(savedAddress);
                     $("input[name='bookDT']").val(savedBookDT);
-                    $("input[name='bookYear'][value='" + savedYear + "']").prop("checked", true);
+                    $("input[name='bookYear'][value='" + extendYear + "']").prop("checked", true);
                     $("input[name='bookExpired']").val(savedBookExpired);
-                    $("span:eq(2)").html(parseInt(savedYear) * 50);
+                    $("span:eq(0)").html(localStorage.getItem("extendApproval"));
+                    $("span:eq(1)").html(localStorage.getItem("extendPaymentStatus"));
+                    $("span:eq(2)").html(parseInt(extendYear) * 50);
+
+                    if(localStorage.getItem("extendBalance") && localStorage.getItem("extendPayAmount") && localStorage.getItem("extendPayDT")){
+                        $("input[name='balance']").val(localStorage.getItem("extendBalance"));
+                        $("input[name='payAmount']").val(localStorage.getItem("extendPayAmount"));
+                        $("input[name='payAmount']").prop('disabled', true);
+                        $("input[name='payDT']").val(localStorage.getItem("extendPayDT"));
+                    }
 
                     buttonControl();
                 } 
                 else {
                     $("article:eq(1)").hide();
-                    $(".message").html("No booking record exists. You can book <a href='add.html'>here</a>.").css("color", "Red");
+                    $(".message").html("No extend booking record exists.").css("color", "Red");
+                }
+
+                if($("span:eq(0)").html().toUpperCase() === "DECLINED"){
+                    $(".paySection").hide();
                 }
 
                 $("button[name='pay']").click(function () {
                     var amount = parseFloat($("input[name='payAmount']").val());
 
                     if (isNaN(amount)) {
-                        alert("Please enter a number only");
+                        $(".message").html("Please enter numbers only");
+                        scrollToMessage();
                         $("input[name='payAmount']").focus();
                     } 
-                    else if (amount >= 50 * savedYear) {
-                        var balance = amount - 50 * savedYear;
-
+                    else if (amount >= 50 * extendYear) {
+                        var balance = amount - 50 * extendYear;
+                        var extendPayDT = getDate(true, extendYear);
                         alert("Thank you.");
                         $("input[name='balance']").val(balance);
-                        $("input[name='payDT']").val(getDate(false));
-                        $("span:eq(1)").html("PAID");
+                        $("input[name='payDT']").val(extendPayDT);
+                        $("span:eq(1)").html("Paid");
+                        $(".message").hide();
+
+                        localStorage.setItem("extendBalance", balance);
+                        localStorage.setItem("extendPayDT", extendPayDT);
+                        localStorage.setItem("extendPaymentStatus", "Paid");
+                        localStorage.setItem("extendPayAmount", amount);
+
                         buttonControl();
                     } 
                     else {
-                        alert("Sorry, the amount is not enough. Try again");
+                        $(".message").html("Sorry, the amount is not enough. Try again");
+                        scrollToMessage();
                         $("input[name='payAmount']").focus();
                     }
                 });
@@ -78,6 +100,22 @@
                     }
                     
                 }
+
+                $("button[name='delete']").click(function(){
+                    var result = window.confirm("Are you sure to cancel plot booking?");
+                    if(result){
+                        localStorage.clear();
+                    }
+                });
+
+                $("button[name='edit']").click(function(){
+                    var result = window.confirm("Are you sure to save changes to the plot booking?");
+                    if(result){
+                        var newExtendYear = $("input[name='bookYear']:checked").val();
+                        localStorage.setItem("extendExpired", getDate(true, newExtendYear));
+                        localStorage.setItem("extendYear", newExtendYear);
+                    }
+                });
 
             });
 
@@ -109,6 +147,8 @@
             <h1 class="title">Extend Booking Details</h1>
             <article>
                 <p class="message"></p>
+            </article>
+            <article>
                 <form id="bookPlot">
                     <table class="mainTable">
                         <tbody>
@@ -169,16 +209,16 @@
                         </tbody>
 
                         <tbody>
-                            <tr>
+                            <tr class="paySection">
                                 <th colspan="2">Payment</th>
                             </tr>
-                            <tr>
+                            <tr class="paySection">
                                 <th>Status:</th>
                                 <th>
                                     <span>Pending</span>
                                 </th>
                             </tr>
-                            <tr>
+                            <tr class="paySection">
                                 <th>Amount (RM 50/year):</th>
                                 <td>
                                     <span></span>

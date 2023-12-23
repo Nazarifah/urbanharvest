@@ -9,6 +9,10 @@ body {
     background-color: rgb(249,241,204);
 }
 
+.message{
+    color: red;
+}
+
 header, footer {
     background-color: rgb(234,180,100);
     font-weight: bold;
@@ -79,7 +83,11 @@ table {
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
-    width: 80%;
+    width: 90%;
+}
+
+thead {
+    background-color: rgb(234, 180, 100);
 }
 
 .mainTable tbody:first-child, tbody:nth-child(2) {
