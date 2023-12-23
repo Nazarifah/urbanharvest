@@ -108,6 +108,7 @@
                     var result = window.confirm("Are you sure to cancel plot booking?");
                     if(result){
                         localStorage.clear();
+                        window.location.reload();
                     }
                 });
 
@@ -150,12 +151,12 @@
                 </ul>
             </nav>
         </header>
-        <section>
+        <section class="wrapper">
             <h1 class="title">Extend Booking Details</h1>
             <article>
                 <p class="message"></p>
             </article>
-            <article>
+            <article class="mainContent">
                 <form id="bookPlot">
                     <table class="mainTable">
                         <tbody>

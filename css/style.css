@@ -3,14 +3,31 @@
     padding: 0;
     color: rgb(38,22,9);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
 }
 
 body {
     background-color: rgb(249,241,204);
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-height: calc(100% - 4%);
+    display: flex;
+    flex-direction: column;
+
+}
+
+section.wrapper {
+    flex: 1;
+}
+
 .message{
+    padding-left: 50px;
     color: red;
 }
 
@@ -21,11 +38,15 @@ input:focus {
 header, footer {
     background-color: rgb(234,180,100);
     font-weight: bold;
+    padding: 0 5px;
 }
 
 footer {
+    bottom: 0;
     text-align: right;
+    height: 4%;
     padding: 10px;
+    font-size: 20px;
 }
 
 nav ul {
@@ -42,6 +63,7 @@ nav ul li a {
     text-decoration: none;
     padding: 10px;
     display: block;
+    font-size: 20px;
 }
 
 nav img {
@@ -77,12 +99,12 @@ nav ul li:last-child {
 }
 
 .title {
-    margin: 50px;
+    margin: 50px 50px 30px;
 }
 
-/* article {
+.wrapper .mainContent {
     margin: 50px;
-} */
+}
 
 table {
     margin-left: auto;
@@ -176,13 +198,13 @@ button {
     margin: 0;
 }
 
-#dashboard article:not(:first-child) {
-    padding: 50px;
-}
-
 #dashboard h2{
     margin-bottom: 20px;
     font-size: 30px;
+}
+
+#dashboard article:not(:first-child) {
+    padding: 50px;
 }
 
 #dashboard p:not(:first-child){

@@ -8,6 +8,9 @@
         <script src="/js/script.js"></script>
         <script>
             $(document).ready(function(){
+
+                sessionStorage.setItem("userType", "Admin");
+
                 var returnedBooking = getBookingList();
                 var isExtend = returnedBooking[0];
                 var bookingList = returnedBooking[1];
@@ -112,13 +115,6 @@
                     </li>
                     <li>
                         <a href="/booking/process.html">Booking</a>
-                        <!-- <ul class="innerlist">
-                            <li><a href="/booking/index.html"><img src="/assets/img/gardening.png"/>Current Booking</a></li>
-                            <li><a href="/booking/history.html"><img src="/assets/img/table.png"/>History Booking</a></li>
-                            <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li>
-                            <li><a href="/booking/process.html"><i class="fas fa-table"></i>Process Booking</a></li>
-                            <li></li>
-                        </ul> -->
                     </li>
                     <li>
                         <a href="#">User</a>
@@ -128,9 +124,9 @@
                 </ul>
             </nav>
         </header>
-        <section>
+        <section class="wrapper">
             <h1 class="title">Customer Booking</h1>
-            <article>
+            <article class="mainContent">
                 <div>
                     <input type="radio" name="selection" value="all" checked/> All
                     <input type="radio" name="selection" value="pending" /> Pending

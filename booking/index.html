@@ -9,6 +9,7 @@
 
         <script>
             $(document).ready(function () {
+                sessionStorage.setItem("userType", "customer");
                 var savedName = localStorage.getItem("gardenName");
                 var savedPlot = localStorage.getItem("plotNo");
                 var savedAddress = localStorage.getItem("gardenAddress");
@@ -160,12 +161,12 @@
                 </ul>
             </nav>
         </header>
-        <section>
+        <section class="wrapper">
             <h1 class="title">Current Booking Details</h1>
             <article>
                 <p class="message"></p>
             </article>
-            <article id="mainContent">
+            <article id="mainContent" class="mainContent">
                 <form id="bookPlot">
                     <table class="mainTable">
                         <tbody>
