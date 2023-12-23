@@ -16,6 +16,7 @@
                 var savedBookDT = localStorage.getItem("extendDT");
                 var savedBookExpired = localStorage.getItem("extendExpired");
                 var extendYear = localStorage.getItem("extendYear");
+                $("input[name='bookYear']").prop('disabled', false);
 
                 // Check if there is saved data
                 if (savedName && savedPlot && savedAddress && extendYear && savedBookDT) {
@@ -94,9 +95,11 @@
                         $("span:eq(1)").html().toUpperCase() == "PENDING"){
                         $("button[name='pay']").show();
                         $(".amount").show();
+                        $("input[name='bookYear']").prop('disabled', true);
                     }
                     else if($("span:eq(1)").html().toUpperCase() == "PAID"){
                         $(".amount").show();
+                        $("input[name='bookYear']").prop('disabled', true);
                     }
                     
                 }
@@ -112,8 +115,12 @@
                     var result = window.confirm("Are you sure to save changes to the plot booking?");
                     if(result){
                         var newExtendYear = $("input[name='bookYear']:checked").val();
+                        $("span:eq(2)").html(parseInt(newExtendYear) * 50);
+                        localStorage.setItem("extendDT", getDate(false, newExtendYear));
                         localStorage.setItem("extendExpired", getDate(true, newExtendYear));
                         localStorage.setItem("extendYear", newExtendYear);
+                        $("input[name='bookDT']").val(localStorage.getItem("extendDT"));
+                        $("input[name='bookExpired']").val(localStorage.getItem("extendExpired"));
                     }
                 });
 
@@ -125,7 +132,7 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li>
                         <a href="#">Booking</a>
                         <ul class="innerlist">

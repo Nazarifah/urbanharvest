@@ -3,6 +3,7 @@
     padding: 0;
     color: rgb(38,22,9);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
 }
 
 body {
@@ -13,6 +14,10 @@ body {
     color: red;
 }
 
+input:focus {
+    border-color: red;
+}
+
 header, footer {
     background-color: rgb(234,180,100);
     font-weight: bold;
@@ -21,11 +26,11 @@ header, footer {
 footer {
     text-align: right;
     padding: 10px;
-    font-weight: bold;
 }
 
 nav ul {
     list-style-type: none;
+    z-index: 2;
 }
 
 nav ul li{
@@ -75,9 +80,9 @@ nav ul li:last-child {
     margin: 50px;
 }
 
-article {
+/* article {
     margin: 50px;
-}
+} */
 
 table {
     margin-left: auto;
@@ -111,6 +116,10 @@ input[type="radio"] {
     border-radius: 100%;
 }
 
+input[type="radio"]:not(:first-child) {
+    margin-left: 20px;
+}
+
 input[type="radio"]:checked {
     background-color: rgb(234,180,100);
 }
@@ -134,4 +143,92 @@ button {
 
 .delete {
     background-color: rgb(255,88,76);
+}
+
+.dash-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    position: relative;
+    width: auto;
+    background-image: url("/assets/img/dashBg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.dash-title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(22, 21, 21, 0.486)
+}
+
+.dash-title p {
+    z-index: 1;
+    font-weight: bold;
+    font-size: 50px;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+}
+
+#dashboard article:not(:first-child) {
+    padding: 50px;
+}
+
+#dashboard h2{
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+#dashboard p:not(:first-child){
+    text-align: justify;
+    color:#323436;
+    font-size: 16px;
+}
+
+#vision, #about1 {
+    background-color: #EEC586;
+}
+
+#mission, #about2 {
+    background-color: #E5A442;
+}
+
+#mission h2 {
+    text-align: right;
+}
+
+#collaboration {
+    background-color: #DEE1E6;
+}
+
+#collaboration h2 {
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.center {
+    margin-left: 20px; /* Optional for spacing */
+}
+
+#collaboration img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.round {
+    width: 15%;
+    border-radius: 100%;
 }

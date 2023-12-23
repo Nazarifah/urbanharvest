@@ -146,9 +146,6 @@
                     <li>
                         <a href="#">Booking</a>
                         <ul class="innerlist">
-                            <!-- <li><a href="/booking/index.html"><img src="/assets/img/gardening.png"/>Current Booking</a></li>
-                            <li><a href="/booking/history.html"><img src="/assets/img/table.png"/>History Booking</a></li>
-                            <li><a href="/booking/extend.html"><img src="/assets/img/rotate.png"/>Extend Booking</a></li> -->
                             <li><a href="/booking/index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
                             <li><a href="/booking/history.html"><i class="fas fa-table"></i>History Booking</a></li>
                             <li><a href="/booking/viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
@@ -160,126 +157,64 @@
                 </ul>
             </nav>
         </header>
-        <section>
-            <h1 class="title">Current Booking Details</h1>
-            <article>
-                <p class="message"></p>
+        <section id="dashboard">
+            <article class="dash-title">
+                <p>Urban Harvest</p>
             </article>
-            <article id="mainContent">
-                <form id="bookPlot">
-                    <table class="mainTable">
-                        <tbody>
-                            <tr>
-                                <th colspan="2">Garden</th>
-                            </tr>
-                            <tr>
-                                <th>Name:</th>
-                                <td>
-                                    <select id="gardenName">
-                                        <option value="none" selected>Please Select Garden Name</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Plot No:</th>
-                                <td>
-                                    <input type="text" name="plotNo" readonly disabled/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Address:</th>
-                                <td>
-                                    <textarea name="gardenAddress" readonly disabled cols="30" rows="5"></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                        
-                        <tbody>
-                            <tr>
-                                <th colspan="2">Booking</th>
-                            </tr>
-                            <tr>
-                                <th>Approval:</th>
-                                <th>
-                                    <span>Pending</span>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Date Time:</th>
-                                <td>
-                                    <input type="text" name="bookDT" readonly disabled/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Use Year (Maximum is 2):</th>
-                                <td>
-                                    <input type="radio" name="bookYear" value="1" checked/> 1 Year
-                                    <input type="radio" name="bookYear" value="2"/> 2 Years
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Expired:</th>
-                                <td>
-                                    <input type="text" name="bookExpired" readonly disabled />
-                                </td>
-                            </tr>
-                        </tbody>
-
-                        <tbody>
-                            <tr class="paySection">
-                                <th colspan="2">Payment</th>
-                            </tr>
-                            <tr class="paySection">
-                                <th>Status:</th>
-                                <th>
-                                    <span>Pending</span>
-                                </th>
-                            </tr>
-                            <tr class="paySection">
-                                <th>Amount (RM 50/year):</th>
-                                <td>
-                                    <span></span>
-                                </td>
-                            </tr>
-                            <tr class="amount">
-                                <th>Pay Amount (RM):</th>
-                                <td>
-                                    <input type="text" name="payAmount"/>
-                                </td>
-                            </tr>
-                            <tr class="amount">
-                                <th>Balance (RM):</th>
-                                <td>
-                                    <input type="text" name="balance" readonly disabled/>
-                                </td>
-                            </tr>
-                            <tr class="amount">
-                                <th>Date Time:</th>
-                                <td>
-                                    <input type="text" name="payDT" readonly disabled/>
-                                </td>
-                            </tr>
-    
-                            <tr>
-                                <td colspan="2">
-                                    <!-- <button type="submit" class="pay"><img src="/assets/img/pay.png" class="icon"/> Pay</button>
-                                    <button type="submit" class="submit"><img src="/assets/img/delete.png" class="icon"/> Pay</button> -->
-                                    <!-- show if pending approval and pending payment -->
-                                    <button type="button" name="delete" class="delete"><i class="fas fa-trash-alt"></i> Cancel</button>
-                                    <!-- show if pending payment -->
-                                    <button type="button" name="pay" class="submit"><i class="fas fa-money-bill-wave"></i> Pay</button>
-                                    <!-- show if success payment -->
-                                    <button type="button" name="extend" class="submit">+ Extend</button>
-                                    <!-- show if pending approval -->
-                                    <button type="button" name="edit" class="submit"><i class="fas fa-pen"></i> Edit</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form> 
+            <article id="vision">
+                <h2>Vision</h2>
+                <p>To cultivate vibrant and sustainable urban communities through UrbanHarvest, fostering a shared commitment to green living, community engagement, and the creation of thriving, accessible green spaces for all.</p>
             </article>
-
+            <article id="mission">
+                <h2>Mission</h2>
+                <p>At UrbanHarvest, our mission is to empower individuals and communities to actively participate in the development of green urban landscapes. We provide a user-friendly, web-based platform that enables residents to effortlessly select, reserve, and contribute to community garden plots. Through seamless online transactions, we aim to enhance accessibility to safe, inclusive green spaces, thereby promoting environmental sustainability, community well-being, and the realization of Sustainable Development Goal 11.</p>
+            </article>
+            <article id="collaboration">
+                <h2>Collaboration</h2>
+                <div>
+                    <img src="/assets/img/utem.png"/>
+                </div>
+            </article>
+            <article id="about1">
+                <h2>About Us</h2>
+                <div class="flex-container">
+                    <img class="round" src="/assets/img/member1.jpg"/>
+                    <div class="center">
+                        <p>Name: Gui Yu Qin</p>
+                        <p>Email: B032220008@student.utem.edu.my</p>
+                        <p>Contact: 0129231224</p>
+                    </div>
+                </div>
+                <div class="flex-container">
+                    <img class="round" src="/assets/img/member2.jpg"/>
+                    <div class="center">
+                        <p>Name: Nazarifah Nazurah Binti Ronzi</p>
+                        <p>Email: B032120057@student.utem.edu.my</p>
+                        <p>Contact: 0199014704</p>
+                    </div>
+                </div>
+            </article>
+            <article id="about2">
+                <div class="flex-container">
+                    <img class="round" src="/assets/img/user.png"/>
+                    <div>
+                        <p>Name: Siti Zulaika</p>
+                        <p>Email: B0321232432@student.utem.edu.my</p>
+                        <p>Contact: 01123453443</p>
+                    </div>
+                    
+                </div>
+                <div class="flex-container">
+                    <img class="round" src="/assets/img/user.png"/>
+                    <div>
+                        <p>Name: Siti Erika</p>
+                        <p>Email: B032123222@student.utem.edu.my</p>
+                        <p>Contact: 0199231204</p>
+                    </div>
+                </div>
+            </article>
         </section>
+        
         <footer>
             Copyright &copy; group C-A
         </footer>
