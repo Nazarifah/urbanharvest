@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS GARDEN (
     gardenID INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     address VARCHAR(255),
-    status INT,
+    status INT
 )
 
 CREATE TABLE IF NOT EXISTS PLOT (
@@ -39,13 +39,29 @@ CREATE TABLE IF NOT EXISTS BOOKING (
     bookDateTime DateTime,
     paymentStatus INT,
     paymentDateTime DateTime,
-    paidAmount DECIMAL(5, 2),
+    paidAmount DECIMAL(8, 2),
     bookYear INT,
     bookApproval INT,
     status INT,
     plotID INT,
     userID INT,
     CONSTRAINT FOREIGN KEY (plotID) REFERENCES PLOT(plotID),
+    CONSTRAINT FOREIGN KEY (userID) REFERENCES USER(userID)
+)
+
+CREATE TABLE IF NOT EXISTS QUESTION (
+    questionID INT AUTO_INCREMENT PRIMARY KEY,
+    sentence VARCHAR(255),
+    status INT
+)
+
+CREATE TABLE IF NOT EXISTS ANSWER (
+    answerID INT AUTO_INCREMENT PRIMARY KEY,
+    answerSentence VARCHAR(255),
+    status INT,
+    questionID INT,
+    userID INT,
+    CONSTRAINT FOREIGN KEY (questionID) REFERENCES QUESTION(questionID),
     CONSTRAINT FOREIGN KEY (userID) REFERENCES USER(userID)
 )
 
