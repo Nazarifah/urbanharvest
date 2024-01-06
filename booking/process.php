@@ -2,11 +2,11 @@
 <html>
     <head>
         <title>Urban Harvest-Booking</title>
-        <link rel="icon" href="/student/bitm/b032220008/urbanharvest/assets/img/logo.png"/>
-        <link rel="stylesheet" href="/student/bitm/b032220008/urbanharvest/css/style.css" />
+        <link rel="icon" href="../assets/img/logo.png"/>
+        <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="/student/bitm/b032220008/urbanharvest/js/script.js"></script>
+        <script src="../js/script.js"></script>
         <script>
             $(document).ready(function(){
 
@@ -105,24 +105,9 @@
 
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="/student/bitm/b032220008/urbanharvest/index.html">Home</a></li>
-                    <li>
-                        <a href="#">Garden</a>
-                    </li>
-                    <li>
-                        <a href="process.html">Booking</a>
-                    </li>
-                    <li>
-                        <a href="#">User</a>
-                    </li>
-                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
-                    <li><a href="#"><i class="fas fa-user"></i></a></li>
-                </ul>
-            </nav>
-        </header>
+        <?php 
+            require("../headStaff.php");
+        ?>
         <section class="wrapper">
             <h1 class="title">Customer Booking</h1>
             <article class="mainContent">

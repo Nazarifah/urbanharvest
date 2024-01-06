@@ -1,0 +1,98 @@
+* {
+    color: rgb(38, 22, 9);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background-image: url("../assets/img/Grass_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.loginForm {
+    background-color: rgba(249, 241, 204, 0.8);
+    border-radius: 30px;
+    padding: 20px;
+    width: 300px;
+}
+
+.loginForm p {
+    margin: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+button {
+    font-size: 20px;
+}
+
+button[name="submit"] {
+    background-color: rgb(183, 142, 109);
+    color: rgba(249, 241, 204, 0.8);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button[name="reset"] {
+    background-color: rgb(183, 142, 109);
+    color: rgba(249, 241, 204, 0.8);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: rgb(38, 22, 9);
+    color: rgb(183, 142, 109);
+}
+
+/* Responsive Styles */
+/* For small screen */
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .loginForm {
+        width: 100%; 
+    }
+}
+
+/* For large screen */
+@media only screen and (min-width: 1440px) {
+    body {
+        padding: 10px;
+    }
+
+    .loginForm {
+        width: 50%; 
+    }
+}
