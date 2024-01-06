@@ -3,7 +3,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 html {
@@ -27,28 +27,41 @@ body {
     width: 300px;
 }
 
+.regisForm {
+    background-color: rgba(249, 241, 204, 0.8);
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.regisForm td {
+    font-size: 10px;
+}
+
 .loginForm p {
     margin: 10px;
 }
 
-input {
+.loginForm input, .regisForm input {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     margin-bottom: 10px;
     border: 2px solid #ccc;
     border-radius: 10px;
     outline: none;
     box-sizing: border-box;
+    font-size: 13px;
 }
 
 .title {
     text-align: center;
     font-weight: bold;
     font-size: 28px;
+    margin-bottom: 20px;
 }
 
 button {
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 button[name="submit"] {

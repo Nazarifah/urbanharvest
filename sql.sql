@@ -80,3 +80,10 @@ INSERT INTO GARDEN (name, address, status) VALUES
 
 INSERT INTO PLOT (size, gardenID, status, availability) VALUES
 ('12 x 30', 1, 1, 1);
+
+INSERT INTO QUESTION (sentence, status) VALUES
+("What is your mother's maiden name?", 1),
+("In which city were you born?", 1),
+("What is the name of your first pet?", 1),
+("What is your favorite movie?", 1),
+("What is the name of your favorite teacher from school?", 1);
