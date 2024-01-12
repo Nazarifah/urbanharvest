@@ -37,15 +37,7 @@
     <body>
         <?php
             if(isset($_SESSION['email'])){
-                if($_SESSION['role'] == 1){
-                    require("../head.php");
-                }
-                else if($_SESSION['role'] == 2){
-                    require("../headStaff.php");
-                }
-                else if($_SESSION['role'] == 3){
-                    require("../headUser.php");
-                }
+                require("../head.php");
             }
         ?>
         <section id="dashboard">
@@ -106,8 +98,7 @@
             </article>
         </section>
         
-        <footer>
-            Copyright &copy; ConnectTheDots | 2023
-        </footer>
+        <?php require("../foot.php"); ?>
+
     </body>
 </html>

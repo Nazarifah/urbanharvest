@@ -41,7 +41,7 @@ body {
     margin: 10px;
 }
 
-.loginForm input, .regisForm input {
+input, textarea {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;

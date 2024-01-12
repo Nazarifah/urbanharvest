@@ -106,7 +106,7 @@
     </head>
     <body>
         <?php 
-            require("../headStaff.php");
+            require("../head.php");
         ?>
         <section class="wrapper">
             <h1 class="title">Customer Booking</h1>

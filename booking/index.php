@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+?>
 <html>
     <head>
         <title>Urban Harvest-Booking</title>
@@ -48,7 +51,7 @@
                 } 
                 else {
                     $("article:eq(1)").hide();
-                    $(".message").html("No booking record exists. You can book <a href='add.html'>here</a>.").css("color", "Red");
+                    $(".message").html("No booking record exists. You can book <a href='add.php'>here</a>.").css("color", "Red");
                 }
 
                 if($("span:eq(0)").html().toUpperCase() === "DECLINED"){
@@ -145,7 +148,7 @@
     </head>
     <body>
         <?php
-            require("../headUser.php");
+            require("../head.php");
         ?>
         
         <section class="wrapper">
@@ -268,8 +271,6 @@
             </article>
 
         </section>
-        <footer>
-            Copyright &copy; ConnectTheDots | 2023
-        </footer>
+        <?php require("../foot.php"); ?>
     </body>
 </html>

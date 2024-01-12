@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html>
+    <?php
+        session_start();
+    ?>
     <head>
         <title>Urban Harvest-Booking</title>
-        <link rel="icon" href="/student/bitm/b032220008/urbanharvest/assets/img/logo.png"/>
-        <link rel="stylesheet" href="/student/bitm/b032220008/urbanharvest/css/style.css" />
+        <link rel="icon" href="../assets/img/logo.png"/>
+        <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="/student/bitm/b032220008/urbanharvest/js/script.js"></script>
+        <script src="../js/script.js"></script>
 
         <script>
             $(document).ready(function(){
 
-                var gardenList = [
-                    ['Taman Daya', '1', 'Taman Daya, 81100 Johor Bahru, Johor'],
-                    ['Taman Desa Idaman', '1', 'Taman Desa Idaman, 76100, Durian Tunggal, Melaka'],
-                    ['Taman Nuri Sentosa', '1', 'Kampung Tengah, 76100 Durian Tunggal, Melaka'],
-                ];
+                $retrievedGarden = null;
 
-                $.each(gardenList, function (index, value) {
-                    $("#gardenName").append($('<option></option>').attr('value', value[0]).text(value[0]));
+                // Make an AJAX request to retrieve garden data
+                $.ajax({
+                    url: '../garden/gardenProcess.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $retrievedGarden = data;
+                        // Iterate through the data and display it
+                        $.each(data, function(index, garden) {
+                            $('#gardenName').append('<option value="' + garden.gardenID + '">' + garden.name + '</option>');
+                        });
+                    },
+                    error: function(xerror) {
+                        console.log('Error fetching garden data:', error);
+                    }
                 });
 
-                $("#gardenName").change(function(){
-                    var plot;
-                    var address;
-                    var name = checkDropDown("#gardenName");
-                    $(".message").hide();
-                    $.each(gardenList, function(index, value) {
-                        if (value[0] === name) {
-                            plot = value[1];
-                            address = value[2];
+                $("#gardenName").change(function() {
+                    var selectedValue = $(this).val();
+                    $.each($retrievedGarden, function(index, garden) {
+                        if (garden.gardenID === selectedValue) {
+                            console.log(garden.address);
+                            $("textarea[name='gardenAddress']").val(garden.address);
+                            
+                            // $("input[name='plotNo']").val(garden.plotNo);
+                            // $("textarea[name='gardenAddress']").val(garden.address);
                             return false;
                         }
+                        else{
+                            console.log("hello");
+                        }
                     });
-
-                    $("input[name='plotNo']").val(plot);
-                    $("textArea[name='gardenAddress']").val(address);
                 });
+
 
                 function checkDropDown(selector){
                     var selectedValue = $(selector).val();
@@ -80,24 +93,9 @@
         </script>
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="/student/bitm/b032220008/urbanharvest/index.html">Home</a></li>
-                    <li>
-                        <a href="#">Booking</a>
-                        <ul class="innerlist">
-                            <li><a href="index.html"><i class="fas fa-seedling"></i>Current Booking</a></li>
-                            <li><a href="history.html"><i class="fas fa-table"></i>History Booking</a></li>
-                            <li><a href="viewExtend.html"><i class="fas fa-redo"></i>Extend Booking</a></li>
-                            <li></li>
-                        </ul>
-                    </li>
-                    <!-- <li><a href="#"><img src="/assets/img/user.png"/></a></li> -->
-                    <li><a href="#"><i class="fas fa-user"></i></a></li>
-                </ul>
-            </nav>
-        </header>
+        <?php
+            require("../head.php");
+        ?>
         <section class="wrapper">
             <h1 class="title">Current Booking Details</h1>
             <article>
@@ -133,8 +131,8 @@
                             <tr>
                                 <th>Use Year (Maximum is 2):</th>
                                 <td>
-                                    <input type="radio" name="bookYear" value="1" checked/> 1 Year
-                                    <input type="radio" name="bookYear" value="2"/> 2 Years
+                                    <input type="radio" name="bookYear" value="1" checked/> 1
+                                    <input type="radio" name="bookYear" value="2"/> 2
                                 </td>
                             </tr>
                             <tr>
@@ -149,8 +147,6 @@
             </article>
 
         </section>
-        <footer>
-            Copyright &copy; ConnectTheDots | 2023
-        </footer>
+        <?php require("../foot.php"); ?>
     </body>
 </html>
